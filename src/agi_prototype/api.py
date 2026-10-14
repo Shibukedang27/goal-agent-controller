@@ -2,13 +2,13 @@ from fastapi import FastAPI
 from .core import Controller
 from .models import GoalRequest, RunResult
 
-app = FastAPI(title="AGI Research Prototype", version="0.1.0")
+app = FastAPI(title="Goal Agent Controller", version="0.1.0")
 controller = Controller()
 
 @app.get("/")
 def root():
     return {
-        "name": "AGI Research Prototype",
+        "name": "Goal Agent Controller",
         "status": "running",
         "docs": "/docs",
         "health": "/health",

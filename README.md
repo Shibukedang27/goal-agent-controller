@@ -1,12 +1,15 @@
-# AGI Bro
+# Goal Agent Controller
 
-AGI Bro is an AGI-oriented research prototype exploring how a system can turn a user’s goal into a bounded, evidence-driven execution process. It is not AGI.
+Goal Agent Controller is a research prototype of a goal-driven agent loop. It explores how a system can turn a user's goal into a bounded, evidence-driven execution process. It is a prototype, not a general intelligence system.
 
 The core idea: **the user provides the WHAT; the system determines the HOW.**
 
 The controller discovers requirements and capabilities, audits knowledge, researches through a bounded browser, learns and practices, tests and transfers capabilities, selects tools, executes artifacts, verifies observed results, diagnoses failures, retries within limits, records memory, and generalizes experience.
 
 ## Setup
+
+The Python package is still named `agi_prototype` (the project's earlier name). Renaming it would touch every import, so I left it as is.
+
 
 ```bash
 python -m venv .venv
@@ -125,5 +128,5 @@ The verified baseline is **68 tests passing**. Missing data, permissions, creden
 
 ## Limitations
 
-This is not AGI. Model reasoning remains a limitation. Browser access is bounded and primarily read-only; authenticated services and cloud deployment require configured connectors. Memory is lightweight, long-horizon autonomy is limited, evaluator independence is incomplete, and real-world grounding remains an open research problem.
+This is a prototype, not a general intelligence system. Model reasoning remains a limitation. Browser access is bounded and primarily read-only; authenticated services and cloud deployment require configured connectors. Memory is lightweight, long-horizon autonomy is limited, evaluator independence is incomplete, and real-world grounding remains an open research problem.
 

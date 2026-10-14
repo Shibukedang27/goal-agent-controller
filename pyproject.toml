@@ -1,5 +1,5 @@
 [project]
-name = "agi-research-prototype"
+name = "goal-agent-controller"
 version = "0.1.0"
 description = "A modular, testable goal-to-execution research prototype"
 requires-python = ">=3.11"
