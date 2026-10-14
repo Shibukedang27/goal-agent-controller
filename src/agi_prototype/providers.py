@@ -58,12 +58,14 @@ function createTask(){const e=document.querySelector('#task');if(e.value.trim())
 
 class OpenAIProvider:
     """Minimal JSON-mode adapter. It is only selected when OPENAI_API_KEY exists."""
-    def __init__(self, api_key: str | None = None, model: str | None = None):
+    def __init__(self, api_key: str | None = None, model: str | None = None, base_url: str | None = None):
         self.api_key, self.model = api_key or os.getenv("OPENAI_API_KEY"), model or os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+        # Any OpenAI-compatible endpoint works, e.g. https://openrouter.ai/api/v1
+        self.base_url = (base_url or os.getenv("OPENAI_BASE_URL") or "https://api.openai.com/v1").rstrip("/")
         if not self.api_key: raise ValueError("OPENAI_API_KEY is not configured")
     def _json(self, instruction: str) -> dict:
         body = json.dumps({"model": self.model, "response_format": {"type": "json_object"}, "messages": [{"role": "user", "content": instruction}]}).encode()
-        req = urllib.request.Request("https://api.openai.com/v1/chat/completions", body, {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"})
+        req = urllib.request.Request(f"{self.base_url}/chat/completions", body, {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"})
         with urllib.request.urlopen(req, timeout=60) as response: return json.loads(json.loads(response.read())["choices"][0]["message"]["content"])
     def understand(self, goal): return self._json(f"Understand this goal and return JSON keys success_criteria, constraints, deliverables, ambiguities, capabilities: {goal}")
     def discover(self, goal, spec): return self._json(f"Return a JSON array of dynamic requirements for this goal, each with name, description, confidence: {goal}")["requirements"]
